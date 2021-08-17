@@ -1,29 +1,24 @@
 module top(
- input clk, rst, cuenta,
- output [6:0] unid,
- output [6:0] dec
+input clk, rst, paso,
+output luz_roja, luz_verde
 );
+
+//cables 
+
 wire clk_n;
-wire [3:0] unidades_c;
-wire [3:0] decenas_c;
- contador c1(
-	 .clk(clk_n), 
-	 .rst(rst), 
-	 .cuenta(cuenta),
-	 .unidades(unidades_c),
-	 .decenas(decenas_c)
+
+practicasemaforo c1(
+.clk(clk_n),
+.rst(rst), 
+.paso(paso),
+.luz_roja(luz_roja),
+.luz_verde(luz_verde)
 );
-docodificador c2(
-	.display(unidades_c),
-	.salida(unid)
+
+
+divisor c2 (
+.clk(clk), 
+.clk_n(clk_n)
 );
-divisor c3(
-    .clk(clk),
-    .clk_n(clk_n)
-);
-docodificador c4(
-	.display(decenas_c),
-	.salida(dec)
-);
- 	 
-endmodule 	 
+
+endmodule 
